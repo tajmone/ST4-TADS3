@@ -10,6 +10,12 @@
 *html
 !/docs/*.html
 
+## TADS Files
+#############
+*.t3
+*.t3x
+*.t3v
+
 ## TMP Work Files
 #################
 ___*.*

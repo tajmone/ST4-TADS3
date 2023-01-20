@@ -16,6 +16,14 @@
 .gitignore       text eol=lf
 .gitmodules      text eol=lf
 
+## TADS Files
+#############
+*.t     text
+*.t3    binary
+*.t3x   binary
+*.t3v   binary
+
+
 ## Documentation Files
 ######################
 *.adoc       text
