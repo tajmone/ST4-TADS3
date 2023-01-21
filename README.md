@@ -31,14 +31,19 @@ This a fork of [@VoidPhantom]'s TADS&nbsp;3 package (2014–2019) for Sublime&nb
 
 - https://github.com/VoidPhantom/sublime-tads3
 
-My goal is to port the old `.tmLanguage` syntax to the new `.sublime-syntax` format and upgrade the package to target Sublime&nbsp;Text&nbsp;4.
+I'm porting the old `.tmLanguage` syntax to the new `.sublime-syntax` format and upgrading the package to target Sublime&nbsp;Text&nbsp;4:
 
-Currently, the original syntax file(s) are unchanged and identical to their upstream counterparts:
+- [`TADS3.sublime-syntax`][TADS3.sublime-syntax]
 
-- [`tads3.tmLanguage`][tads3.tmLanguage]
-- [`tads3.YAML-tmLanguage`][tads3.YAML-tmLanguage]
+The original syntax file(s) are currently preserved unchanged in the package — beside being renamed to uppercase, they remain identical to their upstream counterparts:
 
-Before migrating the syntax to the new format, I want to build robust syntax tests to ensure that scopes are not broken during the process.
+- [`TADS3.tmLanguage`][TADS3.tmLanguage] — ST2 syntax definition.
+- [`TADS3.YAML-tmLanguage`][TADS3.YAML-tmLanguage] — intermediate YAML definition (ignored by ST).
+
+Sublime Text version 3 and above, upon encountering a dual syntax definition, will favour the new `.sublime-syntax` format and ignore the old `.tmLanguage` file — which means that preserving the old syntax is not only harmless, but it also allows Sublime&nbsp;Text&nbsp;2 users to use this package too, since ST2 will ignore the `.sublime-syntax` and fallback on the old `.tmLanguage` file.
+
+If I remember correctly, the `.YAML-tmLanguage` file was an [intermediate serialization format] which allowed ST2 users to work on syntaxes using YAML instead of XML, by editing the YAML definition and converting it to the `.tmLanguage` format via the [PackageDev] dev tools.
+Anyhow, right now I'm still keeping it in the repository since it's ignored by the editor, hence it's harmless to the project.
 
 
 # License
@@ -69,7 +74,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-
 Although the original package by [@VoidPhantom] was released under the terms of the [Unlicense], I chose to adopt the MIT License for this new package to avoid the legal pitfalls of public domain not being recognized by every country.
 
 <!-----------------------------------------------------------------------------
@@ -79,18 +83,22 @@ Although the original package by [@VoidPhantom] was released under the terms of 
 [TADS 3]: https://www.tads.org "TADS website"
 [Unlicense]: https://unlicense.org "Unlicense website"
 
+[intermediate serialization format]: https://github.com/SublimeText/PackageDev/wiki/Serialized-Conversion "Learn more syntax files serialization at PackageDev Wiki"
+
+<!-- packages -->
+
+[PackageDev]: https://packagecontrol.io/packages/PackageDev "Package Control » PackageDev"
+
 <!-- people and orgs -->
 
 [@VoidPhantom]: https://github.com/VoidPhantom "View @VoidPhantom's GitHub profile"
 [Tristano Ajmone]: https://github.com/tajmone "View Tristano Ajmone's GitHub profile"
 
-
 <!-- project files -->
 
 [LICENSE]: ./LICENSE "View MIT License"
-
-[tads3.tmLanguage]: ./tads3.tmLanguage
-[tads3.YAML-tmLanguage]: ./tads3.YAML-tmLanguage
-
+[TADS3.sublime-syntax]: ./TADS3.sublime-syntax
+[TADS3.tmLanguage]: ./TADS3.tmLanguage
+[TADS3.YAML-tmLanguage]: ./TADS3.YAML-tmLanguage
 
 <!-- EOF -->

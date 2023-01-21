@@ -1,0 +1,662 @@
+%YAML 1.2
+---
+# ======================================================================
+# This file was auto-converted from the original "tads3.tmLanguage" via:
+#     Tools > Developer > New Syntax from tads3.tmLanguage...
+# Its contents haven't been changed except for a small RegEx definition
+# that required quoting, and the addition of this comment.
+# ======================================================================
+# http://www.sublimetext.com/docs/syntax.html
+name: TADS 3 Source File
+file_extensions:
+  - t
+scope: source.tads3
+contexts:
+  main:
+    - include: top
+  comments:
+    - match: //.*$
+      scope: comment.line.double-slash.tads3
+    - match: /\*
+      push:
+        - meta_scope: comment.block.tads3
+        - match: \*/
+          pop: true
+  grammar:
+    - match: '([A-Za-z_][A-Za-z0-9_]*)\s*\('
+      captures:
+        1: support.function
+    - match: '(?<=\.)([A-Za-z_][A-Za-z0-9_]*)'
+      captures:
+        1: variable.other
+  keywords:
+    - match: \bclass\b
+      scope: storage.type.class.tads3
+    - match: \bdelegated\b
+      scope: keyword.operator.delegated.tads3
+    - match: \bdictionary\b
+      scope: storage.type.dictionary.tads3
+    - match: \benum\b
+      scope: storage.type.enum.tads3
+    - match: \bextern\b
+      scope: storage.modifier.extern.tads3
+    - match: \bexport\b
+      scope: storage.modifier.export.tads3
+    - match: \bfunction\b
+      scope: storage.type.function.tads3
+    - match: \binherited\b
+      scope: keyword.operator.inherited.tads3
+    - match: \bintrinsic\b
+      scope: storage.type.intrinsic.tads3
+    - match: \blocal\b
+      scope: storage.type.local.tads3
+    - match: \bmethod\b
+      scope: storage.type.method.tads3
+    - match: \bmodify\b
+      scope: storage.modifier.modify.tads3
+    - match: \bmultimethod\b
+      scope: storage.modifier.multimethod.tads3
+    - match: \bnew\b
+      scope: keyword.operator.new.tads3
+    - match: \bnil\b
+      scope: constant.other.nil.tads3
+    - match: \bobject\b
+      scope: keyword.other.object.tads3
+    - match: \boperator\b
+      scope: storage.type.operator.tads3
+    - match: \bproperty\b
+      scope: storage.type.property.tads3
+    - match: \bpropertyset\b
+      scope: storage.type.propertyset.tads3
+    - match: \breplace\b
+      scope: storage.modifier.replace.tads3
+    - match: \breplaced\b
+      scope: keyword.operator.replaced.tads3
+    - match: \bstatic\b
+      scope: keyword.other.static.tads3
+    - match: \btemplate\b
+      scope: storage.type.template.tads3
+    - match: \btransient\b
+      scope: storage.modifier.transient.tads3
+    - match: \btrue\b
+      scope: constant.other.true.tads3
+    - match: \bbreak\b
+      scope: keyword.control.break.tads3
+    - match: \bcase\b
+      scope: keyword.control.case.tads3
+    - match: \bcatch\b
+      scope: keyword.control.catch.tads3
+    - match: \bcontinue\b
+      scope: keyword.control.continue.tads3
+    - match: \bdefault\b
+      scope: keyword.control.default.tads3
+    - match: \bdo\b
+      scope: keyword.control.do.tads3
+    - match: \bif\b
+      scope: keyword.control.if.tads3
+    - match: \belse\b
+      scope: keyword.control.else.tads3
+    - match: \bfinally\b
+      scope: keyword.control.finally.tads3
+    - match: \bfor\b
+      scope: keyword.control.for.tads3
+    - match: \bforeach\b
+      scope: keyword.control.foreach.tads3
+    - match: \bgoto\b
+      scope: keyword.control.goto.tads3
+    - match: \breturn\b
+      scope: keyword.control.return.tads3
+    - match: \bswitch\b
+      scope: keyword.control.switch.tads3
+    - match: \bthrow\b
+      scope: keyword.control.throw.tads3
+    - match: \btry\b
+      scope: keyword.control.try.tads3
+    - match: \bwhile\b
+      scope: keyword.control.while.tads3
+    - match: \bargcount\b
+      scope: entity.other.argcount.tads3
+    - match: \bdefiningobj\b
+      scope: entity.other.definingobj.tads3
+    - match: \bself\b
+      scope: entity.other.self.tads3
+    - match: \btargetobj\b
+      scope: entity.other.targetobj.tads3
+    - match: \btargetprop\b
+      scope: entity.other.targetprop.tads3
+    - match: \binvokee\b
+      scope: entity.other.invokee.tads3
+  literals-numeric:
+    - match: |-
+        (?x)
+        (?:0|[1-9][0-9]*) (?:(?:\.[0-9]*)? [Ee][+-]? [0-9]+ | \.[0-9]*) |
+        \.[0-9]+ (?:[Ee][+-]? [0-9]+)?
+      scope: constant.numeric.float.tads3
+    - match: '0[0-7]+(?![0-9])'
+      scope: constant.numeric.octal.tads3
+    - match: '0[0-9]+'
+      scope: invalid.illegal.bad-octal.tads3
+    - match: '0[Xx][0-9A-Fa-f]+'
+      scope: constant.numeric.hexadecimal.tads3
+    - match: '0(?![0-9])|[1-9][0-9]*'
+      scope: constant.numeric.decimal.tads3
+  literals-regex:
+    - match: 'R"{3,}'
+      push:
+        - meta_scope: string.quoted.triple.double.regex.tads3
+        - match: '"{3,}'
+          pop: true
+        - match: '\\["'']+'
+          scope: constant.character.escape.tads3
+        - include: string-escapes
+    - match: 'R''{3,}'
+      push:
+        - meta_scope: string.quoted.triple.single.regex.tads3
+        - match: '''{3,}'
+          pop: true
+        - match: '\\["'']+'
+          scope: constant.character.escape.tads3
+        - include: string-escapes
+    - match: R"
+      push:
+        - meta_scope: string.quoted.double.regex.tads3
+        - match: '"'
+          pop: true
+        - include: string-escapes
+    - match: R'
+      push:
+        - meta_scope: string.quoted.single.regex.tads3
+        - match: "'"
+          pop: true
+        - include: string-escapes
+  literals-strings-interpolated:
+    - match: '"{3,}'
+      push:
+        - meta_scope: string.quoted.triple.double.tads3
+        - match: '"{3,}'
+          pop: true
+        - match: '<<'
+          push:
+            - meta_scope: source.tads3.embedded.source
+            - match: '>>'
+              pop: true
+            - include: tokens
+        - match: '\\["'']+'
+          scope: constant.character.escape.tads3
+        - include: string-escapes
+        - include: tags-in-triple-double
+    - match: '''{3,}'
+      push:
+        - meta_scope: string.quoted.triple.single.tads3
+        - match: '''{3,}'
+          pop: true
+        - match: '<<'
+          push:
+            - meta_scope: source.tads3.embedded.source
+            - match: '>>'
+              pop: true
+            - include: tokens
+        - match: '\\["'']+'
+          scope: constant.character.escape.tads3
+        - include: string-escapes
+        - include: tags-in-triple-single
+    - match: '"'
+      push:
+        - meta_scope: string.quoted.double.tads3
+        - match: '"'
+          pop: true
+        - match: '<<'
+          push:
+            - meta_scope: source.tads3.embedded.source
+            - match: '>>'
+              pop: true
+            - include: tokens
+        - include: string-escapes
+        - include: tags-in-double
+    - match: "'"
+      captures:
+        0: string.quoted.single.tads3
+      push:
+        - meta_scope: string.quoted.single.tads3
+        - match: "'"
+          captures:
+            0: string.quoted.single.tads3
+          pop: true
+        - match: '<<'
+          push:
+            - meta_scope: source.tads3.embedded.source
+            - match: '>>'
+              pop: true
+            - include: tokens
+        - include: string-escapes
+        - include: tags-in-single
+  literals-strings-simple:
+    - match: '"{3,}'
+      push:
+        - meta_scope: string.quoted.triple.double.tads3
+        - match: '"{3,}'
+          pop: true
+        - match: '\\["'']+'
+          scope: constant.character.escape.tads3
+        - include: string-escapes
+        - include: tags-in-triple-double
+    - match: '''{3,}'
+      push:
+        - meta_scope: string.quoted.triple.single.tads3
+        - match: '''{3,}'
+          pop: true
+        - match: '\\["'']+'
+          scope: constant.character.escape.tads3
+        - include: string-escapes
+        - include: tags-in-triple-single
+    - match: '"'
+      push:
+        - meta_scope: string.quoted.double.tads3
+        - match: '"'
+          pop: true
+        - include: string-escapes
+        - include: tags-in-double
+    - match: "'"
+      push:
+        - meta_scope: string.quoted.single.tads3
+        - match: "'"
+          pop: true
+        - include: string-escapes
+        - include: tags-in-single
+  operators:
+    - match: \(
+      push:
+        - match: \)
+          pop: true
+        - include: tokens
+    - match: ','
+    - match: \.\.\.
+    - match: \.\.
+    - match: \.
+    - match: '\{'
+    - match: '\}'
+    - match: '\['
+    - match: '\]'
+    - match: '=='
+      scope: keyword.operator.eq.tads3
+    - match: '='
+      scope: keyword.operator.assign.tads3
+    - match: \?\?
+      scope: keyword.operator.conditional-short.tads3
+    - match: \?
+      scope: keyword.operator.conditional.tads3
+    - match: ':'
+    - match: \+=
+      scope: keyword.operator.assign.add.tads3
+    - match: \+\+
+      scope: keyword.operator.increment.tads3
+    - match: \+
+      scope: keyword.operator.add.tads3
+    - match: '-='
+      scope: keyword.operator.assign.subtract.tads3
+    - match: '--'
+      scope: keyword.operator.decrement.tads3
+    - match: '->'
+    - match: '-'
+      scope: keyword.operator.subtract.tads3
+    - match: \*=
+      scope: keyword.operator.assign.multiply.tads3
+    - match: \*
+      scope: keyword.operator.multiply.tads3
+    - match: /=
+      scope: keyword.operator.assign.divide.tads3
+    - match: /
+      scope: keyword.operator.divide.tads3
+    - match: '%='
+      scope: keyword.operator.assign.modulo.tads3
+    - match: '%'
+      scope: keyword.operator.modulo.tads3
+    - match: '>='
+      scope: keyword.operator.ge.tads3
+    - match: '>>='
+      scope: keyword.operator.assign.shift-right.arithmetical.tads3
+    - match: '>>>='
+      scope: keyword.operator.assign.shift-right.logical.tads3
+    - match: '>>>'
+      scope: keyword.operator.shift-right.logical.tads3
+    - match: '>>'
+      scope: keyword.operator.shift-right.arithmetical.tads3
+    - match: '>'
+      scope: keyword.operator.gt.tads3
+    - match: <=
+      scope: keyword.operator.le.tads3
+    - match: '<<='
+      scope: keyword.operator.assign.shift-left.tads3
+    - match: '<<'
+      scope: keyword.operator.shift-left.tads3
+    - match: <
+      scope: keyword.operator.lt.tads3
+    - match: ;
+    - match: '&&'
+      scope: keyword.operator.logical.and.tads3
+    - match: '&='
+      scope: keyword.operator.assign.and.tads3
+    - match: '&'
+      scope: keyword.operator.bitwise.and.tads3
+    - match: \|\|
+      scope: keyword.operator.logical.or.tads3
+    - match: \|=
+      scope: keyword.operator.assign.or.tads3
+    - match: \|
+      scope: keyword.operator.bitwise.or.tads3
+    - match: \^=
+      scope: keyword.operator.assign.xor.tads3
+    - match: \^
+      scope: keyword.operator.bitwise.xor.tads3
+    - match: '!='
+      scope: keyword.operator.ne.tads3
+    - match: '!'
+      scope: keyword.operator.logical.not.tads3
+    - match: '~'
+      scope: keyword.operator.bitwise.not.tads3
+    - match: '@'
+    - match: '##'
+      scope: keyword.operator.preprocessor.token-paste.tads3
+    - match: '#@'
+      scope: keyword.operator.preprocessor.stringize.single.tads3
+    - match: '#'
+      scope: keyword.operator.preprocessor.stringize.double.tads3
+  preprocessor:
+    - match: '^\s*#\s*(charset)\s*("[^"]*")$'
+      scope: meta.preprocessor.charset.tads3
+      captures:
+        1: keyword.other.preprocessor.charset.tads3
+        2: string.quoted.double.charset.tads3
+    - match: |-
+        (?x)
+        ^\s*\#\s*(define)\s+ ([A-Za-z_][A-Za-z0-9_]*)
+        \((?:
+          (?:\s*  ([A-Za-z][A-Za-z0-9_]*)  )\s*
+          (?:,\s* ([A-Za-z_][A-Za-z0-9_]*) \s*)*
+        )?\)
+      captures:
+        1: keyword.other.preprocessor.define.tads3
+        2: entity.name.function.preprocessor.tads3
+        3: variable.parameter.preprocessor.tads3
+        4: variable.parameter.preprocessor.tads3
+      push:
+        - meta_scope: meta.preprocessor.define.function.tads3
+        - match: $
+          pop: true
+        - include: tokens
+    - match: '^\s*#\s*(define)\s+([A-Za-z_][A-Za-z0-9_]*)\b'
+      captures:
+        1: keyword.other.preprocessor.define.tads3
+        2: entity.name.function.preprocessor.tads3
+      push:
+        - meta_scope: meta.preprocessor.define.simple.tads3
+        - match: $
+          pop: true
+        - include: tokens
+    - match: ^\s*#\s*(error)\s+
+      captures:
+        1: keyword.other.preprocessor.error.tads3
+      push:
+        - meta_scope: meta.preprocessor.error.tads3
+        - match: $
+          pop: true
+        - include: preprocessor-tokens
+    - match: '^\s*#\s*(ifdef)\s+([A-Za-z_][A-Za-z0-9_]*)\s*$'
+      captures:
+        1: keyword.other.preprocessor.ifdef.tads3
+        2: entity.other.function.preprocessor.ifdef.tads3
+      push:
+        - meta_scope: meta.preprocessor.if-block.ifdef.tads3
+        - match: ^\s*#\s*(endif)\s*$
+          captures:
+            1: keyword.other.preprocessor.endif.tads3
+          pop: true
+        - include: top
+        - include: preprocessor-cond
+    - match: '^\s*#\s*(ifndef)\s+([A-Za-z_][A-Za-z0-9_]*)\s*$'
+      captures:
+        1: keyword.other.preprocessor.ifndef.tads3
+        2: entity.other.function.preprocessor.ifndef.tads3
+      push:
+        - meta_scope: meta.preprocessor.if-block.ifndef.tads3
+        - match: ^\s*#\s*(endif)\s*$
+          captures:
+            1: keyword.other.preprocessor.endif.tads3
+          pop: true
+        - include: top
+        - include: preprocessor-cond
+    - match: ^\s*#\s*(if)\b
+      captures:
+        1: keyword.other.preprocessor.ifdef.tads3
+        2: entity.other.function.preprocessor.tads3
+      push:
+        - meta_scope: meta.preprocessor.if-block.if.tads3
+        - match: ^\s*#\s*(endif)\s*$
+          captures:
+            1: keyword.other.preprocessor.endif.tads3
+          pop: true
+        - match: (?<!if)
+          push:
+            - match: (?=^\s*#\s*endif\s*$)
+              pop: true
+            - include: top
+            - include: preprocessor-cond
+        - match: ''
+          push:
+            - match: $
+              pop: true
+            - include: preprocessor-tokens
+    - match: '^\s*#\s*(include)\s*("[^"]*")\s*$'
+      scope: meta.preprocessor.include.double.tads3
+      captures:
+        1: keyword.other.preprocessor.include.tads3
+        2: string.quoted.double.include.tads3
+    - match: '^\s*#\s*(include)\s*(<[^"]*>)\s*$'
+      scope: meta.preprocessor.include.lt-gt.tads3
+      captures:
+        1: keyword.other.preprocessor.include.tads3
+        2: string.quoted.other.lt-gt.include.tads3
+    - match: '^\s*#\s*(line)\s+(0|[1-9][0-9]*)\s*(''[^'']*'')\s*$'
+      scope: meta.preprocessor.line.tads3
+      captures:
+        1: keyword.other.preprocessor.line.tads3
+        2: constant.numeric.line.tads3
+        3: string.quoted.single.line.tads3
+    - match: ^\s*#\s*(pragma)\s+(message)\s*\(
+      captures:
+        1: keyword.other.preprocessor.pragma.tads3
+        2: keyword.other.preprocessor.pragma-message.tads3
+      push:
+        - meta_scope: meta.preprocessor.pragma.tads3.message
+        - match: \)\s*$
+          pop: true
+        - include: preprocessor-tokens
+    - match: |-
+        ^(?x)\s*\#\s* (pragma) \s+ (newline_spacing) \s*\(\s*
+          (collapse|delete|preserve|on|off)
+        \s*\)\s*$
+      scope: meta.preprocessor.pragma.tads3.newline-spacing
+      captures:
+        1: keyword.other.preprocessor.pragma.tads3
+        2: keyword.other.preprocessor.pragma-newline-spacing.tads3
+        3: keyword.other.preprocessor.pragma-newline-spacing-value.tads3
+    - match: ^\s*#\s*(pragma)\s+(sourceTextGroup)\s*\(\s*(on|off)\s*\)\s*$
+      scope: meta.preprocessor.pragma.tads3.stg
+      captures:
+        1: keyword.other.preprocessor.pragma.tads3
+        2: keyword.other.preprocessor.pragma-stg.tads3
+        3: keyword.other.preprocessor.pragma-stg-value.tads3
+    - match: ^\s*#\s*(pragma)\s*(once)\s*$
+      scope: meta.preprocessor.pragma.tads3.once
+      captures:
+        1: keyword.other.preprocessor.pragma.tads3
+        2: keyword.other.preprocessor.pragma-once.tads3
+    - match: '^\s*#\s*(pragma)\s*(all_once)\s*[\+\-]\s*$'
+      scope: meta.preprocessor.pragma.tads3.all-once
+      captures:
+        1: keyword.other.preprocessor.pragma.tads3
+        2: keyword.other.preprocessor.pragma-all-once.tads3
+    - match: '^\s*#\s*(undef)\s*([A-Za-z_][A-Za-z0-9_]*)\s*$'
+      scope: meta.preprocessor.undef.tads3
+      captures:
+        1: keyword.other.preprocessor.undef.tads3
+        2: entity.other.function.preprocessor.undef.tads3
+  preprocessor-cond:
+    - match: ^\s*#\s*(else)\s*$
+      scope: meta.preprocessor.else.tads3
+      captures:
+        1: keyword.other.preprocessor.else.tads3
+    - match: ^\s*#\s*(elif)
+      captures:
+        1: keyword.other.preprocessor.elif.tads3
+      push:
+        - meta_scope: meta.preprocessor.elif.tads3
+        - match: $
+          pop: true
+        - include: preprocessor-tokens
+  preprocessor-tokens:
+    - include: comments
+    - include: symbols
+    - include: literals-numeric
+    - include: literals-regex
+    - include: literals-strings-simple
+    - include: operators
+  string-escapes:
+    - match: |-
+        (?x)
+        \\(?:
+          [\\<>"'\^v bnrt] | # simple ones
+          u[0-9A-Fa-f]{4} |  # 4-digit hex
+          x[0-9A-Fa-f]{2} |  # 2-digit hex
+          [0-7]{3}           # 3-digit octal
+        )
+      scope: constant.character.escape.tads3
+    - match: |-
+        (?x)
+        (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
+          u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+          [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+          x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        ))
+      scope: invalid.illegal.bad-escape.tads3
+  symbols:
+    - match: '\b[A-Za-z_][A-Za-z0-9_]*\b'
+  tags-common:
+    - match: '<(?:\\.)?/([A-Za-z\\.]+)>'
+      scope: meta.tag.html.end.tads3
+      captures:
+        1: entity.name.tag.tads3
+    - match: '\{[A-Za-z0-9/ \-_]*\}'
+      scope: meta.tag.curly.tads3
+  tags-in-double:
+    - include: tags-common
+    - match: |-
+        (?x)
+        <([A-Za-z\.]+)\b(?:             # tag name, followed by...
+        [^\\"<>]                        # a safe char...
+        (\\(?:                          # or a good escape...
+          [\\<>"'\^v bnrt] | # simple ones
+          u[0-9A-Fa-f]{4} |  # 4-digit hex
+          x[0-9A-Fa-f]{2} |  # 2-digit hex
+          [0-7]{3}           # 3-digit octal
+        )) |                            # or a bad escape.
+        (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
+          u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+          [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+          x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        )))*>
+      scope: meta.tag.html.begin.tads3
+      captures:
+        1: entity.name.tag.tads3
+        2: constant.character.escape.tads3
+        3: invalid.illegal.bad-escape.tads3
+  tags-in-single:
+    - include: tags-common
+    - match: |-
+        (?x)
+        <([A-Za-z\.]+)\b(?:             # tag name, followed by...
+        [^\\'<>]                        # a safe char...
+        (\\(?:                          # or a good escape...
+          [\\<>"'\^v bnrt] | # simple ones
+          u[0-9A-Fa-f]{4} |  # 4-digit hex
+          x[0-9A-Fa-f]{2} |  # 2-digit hex
+          [0-7]{3}           # 3-digit octal
+        )) |                            # or a bad escape.
+        (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
+          u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+          [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+          x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        )))*>
+      scope: meta.tag.html.begin.tads3
+      captures:
+        1: entity.name.tag.tads3
+        2: constant.character.escape.tads3
+        3: invalid.illegal.bad-escape.tads3
+  tags-in-triple-double:
+    - include: tags-common
+    - match: |-
+        (?x)
+        <([A-Za-z\.]+)\b(?:             # tag name, followed by...
+        [^\\"<>] | "(?!") | ""(?!") |   # a safe char, or a non-closing quote...
+        (\\(?:                          # or a good escape...
+          [\\<>\^v bnrt]  | # simple ones
+          u[0-9A-Fa-f]{4} | # 4-digit hex
+          x[0-9A-Fa-f]{2} | # 2-digit hex
+          [0-7]{3} |        # 3-digit octal
+          ["']+             # special triple-quote escape
+        )) |                            # or a bad escape.
+        (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
+          u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+          [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+          x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        )))*>
+      scope: meta.tag.html.begin.tads3
+      captures:
+        1: entity.name.tag.tads3
+        2: constant.character.escape.tads3
+        3: invalid.illegal.bad-escape.tads3
+  tags-in-triple-single:
+    - include: tags-common
+    - match: |-
+        (?x)
+        <([A-Za-z\.]+)\b(?:             # tag name, followed by...
+        [^\\'<>] | '(?!') | ''(?!') |   # a safe char, or a non-closing quote...
+        (\\(?:                          # or a good escape...
+          [\\<>\^v bnrt]  | # simple ones
+          u[0-9A-Fa-f]{4} | # 4-digit hex
+          x[0-9A-Fa-f]{2} | # 2-digit hex
+          [0-7]{3} |        # 3-digit octal
+          ["']+             # special triple-quote escape
+        )) |                            # or a bad escape.
+        (\\(?:[^\\<>"'\^v bnrtux0-7] | # not one of valid continuations
+          u(?![0-9A-Fa-f]) | u[0-9A-Fa-f] (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{2} (?![0-9A-Fa-f]) |
+            u[0-9A-Fa-f]{3} (?![0-9A-Fa-f]) | # bad 4-digit hex
+          [0-7] (?![0-7]) | [0-7]{2} (?![0-7]) | # bad 3-digit octal
+          x(?![0-9A-Fa-f]) | x[0-9A-Fa-f] (?![0-9A-Fa-f]) # bad 2-digit hex
+        )))*>
+      scope: meta.tag.html.begin.tads3
+      captures:
+        1: entity.name.tag.tads3
+        2: constant.character.escape.tads3
+        3: invalid.illegal.bad-escape.tads3
+  tokens:
+    - include: comments
+    - include: keywords
+    - include: grammar
+    - include: symbols
+    - include: literals-numeric
+    - include: literals-regex
+    - include: literals-strings-interpolated
+    - include: operators
+  top:
+    - include: preprocessor
+    - include: tokens

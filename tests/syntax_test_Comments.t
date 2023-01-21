@@ -1,4 +1,4 @@
-// SYNTAX TEST "Packages/ST4-TADS3/tads3.tmLanguage"
+// SYNTAX TEST "Packages/ST4-TADS3/TADS3.sublime-syntax"
 
     // line comment
 //  ^^^^^^^^^^^^^^^   comment.line.double-slash
